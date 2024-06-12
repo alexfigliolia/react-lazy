@@ -21,3 +21,12 @@ export interface OptionalChildren {
 }
 
 export type EmptyObject = Record<string, never>;
+
+export enum PriorityLevel {
+  "Immediate" = 0,
+  "Background" = 1,
+}
+
+export interface ILazyComponentFactory<T> extends ILazyComponent<T> {
+  priority?: PriorityLevel;
+}
