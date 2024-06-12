@@ -1,5 +1,5 @@
 # React Lazy
-Lazy components that dynamically load on mount. 
+Lazy components that support preloading and dynamically load on mount. 
 
 ## Installation 
 ```bash
