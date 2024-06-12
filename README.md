@@ -141,11 +141,9 @@ const MyLowPriorityComponent = CreateLazyComponent({
 });
 ```
 
-By default `Priority.Immediate` components will be loaded optimistically ahead of `Priority.Background` components.
+By default `Priority.Immediate` components will be loaded ahead of `Priority.Background` components.
 
 A good use of `Priority.Immediate` would be for components that are core to your UI's most basic functionality, such as headers and sidebars. Similarly, for components that are conditionally used such as modals or drawer menus `Priority.Background` is more appropriate.
-
-For cases where you want a truly deferred component won't optimistically load before it renders, you can simply omit the `priority` argument when calling `CreateLazyComponent()`.
 
 Utilitizing this pattern in large applications can have a great effect on your core metrics such as `FMP` and `TTI`.
 

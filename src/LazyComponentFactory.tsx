@@ -18,9 +18,7 @@ export const LazyComponentFactory = (Queue: PriorityQueue) => {
       public Component = lazy(() => loader());
       constructor(props: T) {
         super(props);
-        if (typeof priority !== "undefined") {
-          Queue.push(priority, loader);
-        }
+        Queue.push(priority, loader);
       }
 
       public static preload() {
