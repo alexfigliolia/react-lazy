@@ -1,6 +1,6 @@
 import type { PriorityLevel } from "./types";
 
-export type Loader = () => Promise<any>;
+export type Loader = () => Promise<any> | any;
 
 export class PriorityQueue {
   private running = false;
@@ -27,8 +27,9 @@ export class PriorityQueue {
     while (!this.isEmpty) {
       if (this.isInputPending) {
         await this.yield();
+        continue;
       }
-      void this.pop?.();
+      void this.pop?.()?.();
     }
     this.running = false;
   }
@@ -50,14 +51,6 @@ export class PriorityQueue {
     return true;
   }
 
-  *[Symbol.iterator]() {
-    for (const bucket of this.storage) {
-      if (bucket && bucket.length) {
-        yield bucket;
-      }
-    }
-  }
-
   private validatePriority(priority: PriorityLevel) {
     if (priority >= PriorityQueue.N) {
       throw new Error(`The priority ${priority} is invalid`);
@@ -69,11 +62,20 @@ export class PriorityQueue {
       // @ts-ignore
       return navigator?.scheduling?.isInputPending?.() ?? false;
     }
+    return false;
   }
 
   private yield(wait = this.yieldTime) {
     return new Promise(resolve => {
       setTimeout(resolve, wait);
     });
+  }
+
+  *[Symbol.iterator]() {
+    for (const bucket of this.storage) {
+      if (bucket && bucket.length) {
+        yield bucket;
+      }
+    }
   }
 }
