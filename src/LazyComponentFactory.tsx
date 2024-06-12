@@ -11,7 +11,10 @@ export const LazyComponentFactory = (Queue: PriorityQueue) => {
     fallback = null,
     errorBoundary = null,
   }: ILazyComponentFactory<T>) => {
-    return class LazyComponent extends PureComponent<T, EmptyObject> {
+    return class PrioritizedLazyComponent extends PureComponent<
+      T,
+      EmptyObject
+    > {
       public Component = lazy(() => loader());
       constructor(props: T) {
         super(props);
