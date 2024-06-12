@@ -1,6 +1,6 @@
 {
   "name": "@figliolia/react-lazy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lazy components that dynamically load on mount",
   "main": "dist/cjs/index.js",
   "scripts": {
@@ -8,6 +8,10 @@
     "lint": "tsx ci/commands/Lint.ts",
     "test": "tsx ci/commands/Test.ts"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "keywords": [
     "react",
     "lazy",
@@ -53,5 +57,8 @@
     }
   },
   "module": "dist/mjs/index.js",
-  "types": "dist/types/index.d.ts"
+  "types": "dist/types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  }
 }
