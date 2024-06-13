@@ -16,7 +16,9 @@ export class PriorityQueue {
     const bucket = this.storage[priority] || [];
     bucket.push(value);
     this.storage[priority] = bucket;
-    void this.execute();
+    if (!this.running) {
+      void Promise.resolve().then(() => this.execute());
+    }
   }
 
   public async execute() {
