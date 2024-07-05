@@ -11,11 +11,11 @@ export const LazyComponentFactory = (Queue: PriorityQueue) => {
     fallback = null,
     errorBoundary = null,
   }: ILazyComponentFactory<T>) => {
+    const Component = lazy(() => loader());
     return class PrioritizedLazyComponent extends PureComponent<
       T,
       EmptyObject
     > {
-      public Component = lazy(() => loader());
       constructor(props: T) {
         super(props);
         Queue.push(priority, loader);
@@ -26,12 +26,11 @@ export const LazyComponentFactory = (Queue: PriorityQueue) => {
       }
 
       public override render() {
-        const { Component, props } = this;
         return (
           <ErrorBoundary fallback={errorBoundary} onError={onError}>
             <Suspense fallback={fallback}>
               {/* @ts-ignore */}
-              <Component {...props} />
+              <Component {...this.props} />
             </Suspense>
           </ErrorBoundary>
         );
