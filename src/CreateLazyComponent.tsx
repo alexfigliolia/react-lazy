@@ -10,7 +10,6 @@ export const CreateLazyComponent = <T extends Record<string, any>>({
 }: ILazyComponent<T>) => {
   const Component = lazy(() => loader());
   return class LazyComponent extends PureComponent<T, EmptyObject> {
-
     public static preload() {
       return loader();
     }

@@ -1,7 +1,11 @@
 import { lazy, PureComponent, Suspense } from "react";
 import { ErrorBoundary } from "./ErrorBoundary";
 import type { PriorityQueue } from "./PriorityQueue";
-import { PriorityLevel, type EmptyObject, type ILazyComponentFactory } from "./types";
+import {
+  type EmptyObject,
+  type ILazyComponentFactory,
+  PriorityLevel,
+} from "./types";
 
 export const LazyComponentFactory = (Queue: PriorityQueue) => {
   return <T extends Record<string, any>>({
