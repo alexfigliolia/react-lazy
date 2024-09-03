@@ -1,3 +1,4 @@
+import { LinkedList } from "@figliolia/data-structures";
 import type { PriorityLevel } from "./types";
 
 export type Loader = () => Promise<any> | any;
@@ -6,14 +7,14 @@ export class PriorityQueue {
   private running = false;
   private yieldTime: number;
   public static readonly N = 2;
-  private readonly storage = new Array<Loader[]>(PriorityQueue.N);
+  private readonly storage = new Array<LinkedList<Loader>>(PriorityQueue.N);
   constructor(yieldTime = 5) {
     this.yieldTime = yieldTime;
   }
 
-  public push(priority: PriorityLevel, value: Loader) {
+  public enqueue(priority: PriorityLevel, value: Loader) {
     this.validatePriority(priority);
-    const bucket = this.storage[priority] || [];
+    const bucket = this.storage[priority] || new LinkedList();
     bucket.push(value);
     this.storage[priority] = bucket;
     if (!this.running) {
@@ -31,24 +32,20 @@ export class PriorityQueue {
         await this.yield();
         continue;
       }
-      void this.pop?.()?.();
+      void this.dequeue?.()?.();
     }
     this.running = false;
   }
 
-  public pop() {
+  public dequeue() {
     for (const bucket of this) {
-      if (bucket && bucket.length) {
-        return bucket.pop();
-      }
+      return bucket.shift();
     }
   }
 
   public get isEmpty() {
-    for (const bucket of this) {
-      if (bucket && bucket.length) {
-        return false;
-      }
+    for (const _ of this) {
+      return false;
     }
     return true;
   }
@@ -75,7 +72,7 @@ export class PriorityQueue {
 
   *[Symbol.iterator]() {
     for (const bucket of this.storage) {
-      if (bucket && bucket.length) {
+      if (bucket && bucket.size) {
         yield bucket;
       }
     }

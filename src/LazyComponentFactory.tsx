@@ -22,7 +22,7 @@ export const LazyComponentFactory = (Queue: PriorityQueue) => {
     > {
       constructor(props: T) {
         super(props);
-        Queue.push(priority, loader);
+        Queue.enqueue(priority, loader);
       }
 
       public static preload() {

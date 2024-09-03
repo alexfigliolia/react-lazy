@@ -80,6 +80,7 @@ module.exports = {
       "error",
       {
         args: "all",
+        varsIgnorePattern: "^_",
         destructuredArrayIgnorePattern: "^_",
         argsIgnorePattern: "^_",
       },

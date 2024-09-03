@@ -154,7 +154,7 @@ import { PriorityQueue, PriorityLevel } from "@figliolia/react-lazy";
 
 export const LoadingQueue = new PriorityQueue();
 
-LoadingQueue.push(
+LoadingQueue.enqueue(
   PriorityLevel.Background,
   () => import("expensive-node-module").then(() => {
     // do something with your expensive module when
@@ -162,7 +162,7 @@ LoadingQueue.push(
   })
 )
 
-LoadingQueue.push(
+LoadingQueue.enqueue(
   PriorityLevel.Background,
   () => new Promise(resolve => {
     const image = new Image();
