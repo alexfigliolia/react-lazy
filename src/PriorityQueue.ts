@@ -1,7 +1,5 @@
 import { LinkedList } from "@figliolia/data-structures";
-import type { PriorityLevel } from "./types";
-
-export type Loader = () => Promise<any> | any;
+import type { Loader, PriorityLevel } from "./types";
 
 export class PriorityQueue {
   private running = false;
@@ -12,14 +10,28 @@ export class PriorityQueue {
     this.yieldTime = yieldTime;
   }
 
-  public enqueue(priority: PriorityLevel, value: Loader) {
+  public enqueue<T>(priority: PriorityLevel, value: Loader<T>) {
     this.validatePriority(priority);
     const bucket = this.storage[priority] || new LinkedList();
-    bucket.push(value);
-    this.storage[priority] = bucket;
-    if (!this.running) {
-      void Promise.resolve().then(() => this.execute());
-    }
+    return new Promise<T>((resolve, reject) => {
+      bucket.push(async () => {
+        try {
+          const returnValue = value();
+          if (returnValue instanceof Promise) {
+            const resolvedValue = await returnValue;
+            resolve(resolvedValue);
+          } else {
+            resolve(returnValue);
+          }
+        } catch (error) {
+          reject(error);
+        }
+      });
+      this.storage[priority] = bucket;
+      if (!this.running) {
+        void Promise.resolve().then(() => this.execute());
+      }
+    });
   }
 
   public async execute() {

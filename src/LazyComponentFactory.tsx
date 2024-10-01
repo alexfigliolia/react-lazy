@@ -15,13 +15,13 @@ export const LazyComponentFactory = (Queue: PriorityQueue) => {
     errorBoundary = null,
     priority = PriorityLevel.Immediate,
   }: ILazyComponentFactory<T>) => {
-    const Component = lazy(() => loader());
+    const Component = lazy(() => Queue.enqueue(priority, loader));
     return class PrioritizedLazyComponent extends PureComponent<
       T,
       EmptyObject
     > {
-      public static preload() {
-        Queue.enqueue(priority, loader);
+      public static preload(preloadPriority = priority) {
+        return Queue.enqueue(preloadPriority, loader);
       }
 
       public override render() {

@@ -30,3 +30,5 @@ export enum PriorityLevel {
 export interface ILazyComponentFactory<T> extends ILazyComponent<T> {
   priority?: PriorityLevel;
 }
+
+export type Loader<T = any> = () => Promise<T> | T;
