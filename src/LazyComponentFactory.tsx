@@ -20,13 +20,8 @@ export const LazyComponentFactory = (Queue: PriorityQueue) => {
       T,
       EmptyObject
     > {
-      constructor(props: T) {
-        super(props);
-        Queue.enqueue(priority, loader);
-      }
-
       public static preload() {
-        return loader();
+        Queue.enqueue(priority, loader);
       }
 
       public override render() {
