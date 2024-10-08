@@ -1,6 +1,6 @@
 {
   "name": "@figliolia/react-lazy",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Lazy components that dynamically load on mount",
   "main": "dist/cjs/index.js",
   "scripts": {
@@ -22,6 +22,11 @@
   ],
   "author": "Alex Figliolia",
   "license": "MIT",
+  "homepage": "https://github.com/alexfigliolia/react-lazy#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexfigliolia/react-lazy.git"
+  },
   "peerDependencies": {
     "@figliolia/data-structures": "^1.1.0",
     "react": "^18.3.1"
