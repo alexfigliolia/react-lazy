@@ -1,6 +1,6 @@
 {
   "name": "@figliolia/react-lazy",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Lazy components that dynamically load on mount",
   "main": "dist/cjs/index.js",
   "scripts": {

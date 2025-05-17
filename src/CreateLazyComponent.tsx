@@ -1,6 +1,6 @@
-import { lazy, PureComponent, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "./ErrorBoundary";
-import type { EmptyObject, ILazyComponent } from "./types";
+import type { ILazyComponent } from "./types";
 
 export const CreateLazyComponent = <T extends Record<string, any>>({
   loader,
@@ -9,20 +9,16 @@ export const CreateLazyComponent = <T extends Record<string, any>>({
   errorBoundary = null,
 }: ILazyComponent<T>) => {
   const Component = lazy(() => loader());
-  return class LazyComponent extends PureComponent<T, EmptyObject> {
-    public static preload() {
-      return loader();
-    }
-
-    public override render() {
-      return (
-        <ErrorBoundary fallback={errorBoundary} onError={onError}>
-          <Suspense fallback={fallback}>
-            {/* @ts-ignore */}
-            <Component {...this.props} />
-          </Suspense>
-        </ErrorBoundary>
-      );
-    }
-  };
+  function LazyComponent(props: T) {
+    return (
+      <ErrorBoundary fallback={errorBoundary} onError={onError}>
+        <Suspense fallback={fallback}>
+          {/* @ts-ignore */}
+          <Component {...props} />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  LazyComponent.preload = loader;
+  return LazyComponent;
 };

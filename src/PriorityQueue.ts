@@ -12,8 +12,8 @@ export class PriorityQueue {
 
   public enqueue<T>(priority: PriorityLevel, value: Loader<T>) {
     this.validatePriority(priority);
-    const bucket = this.storage[priority] || new LinkedList();
     return new Promise<T>((resolve, reject) => {
+      const bucket = this.storage[priority] || new LinkedList();
       bucket.push(async () => {
         try {
           const returnValue = value();
