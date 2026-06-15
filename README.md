@@ -1,13 +1,11 @@
 # React Lazy
 
-Lazy loadable components powered by the [Scheduler API](https://developer.mozilla.org/en-US/docs/Web/API/Scheduler)
+Lazy loadable components powered by the [Scheduler API](https://developer.mozilla.org/en-US/docs/Web/API/Scheduler). 
 
 ## Installation
 
 ```bash
 npm i -S @figliolia/react-lazy
-#or
-yarn add @figliolia/react-lazy
 ```
 
 ## Basic Usage
@@ -22,7 +20,7 @@ const MyLazyComponent = CreateLazyComponent({
   loader: () => import("./path/to/Component"),
   onError: (error: Error, errorInfo: ErrorInfo) => {},
   delay: undefined, // optional millisecond delay
-  priority: "background", // user-blocking, user-visible, or background;
+  priority: "user-visible", // user-blocking, user-visible, or background;
   signal: undefined, // an optional abort signal to bail out of the loader
 });
 
@@ -41,7 +39,7 @@ export const MyApp () => {
 }
 ```
 
-## CreateLazyComponent()
+## `CreateLazyComponent()`
 
 ### Parameters
 
@@ -49,9 +47,9 @@ export const MyApp () => {
 
 `fallback`: (optional) A `ReactNode` to display while to the lazy component is suspended
 
-`errorBoundary`: (optional) A `ReactNode` to display if the lazy component throws an error
+`errorBoundary`: (optional) A `ReactNode` to display if the lazy component throws an error. Utilizing this option will cause your lazy loaded component to be wrapped in it's own `ErrorBoundary`
 
-`onError`: (optional) A callback to execute if the lazy component throws an error.
+`onError`: (optional) A callback to execute if the lazy component throws an error. Utilizing this option will cause your lazy loaded component to be wrapped in it's own `ErrorBoundary`
 
 `priority`: (optional) A valid `TaskPriority` - `user-blocking`, `user-visible`, or `background`. The execution order of loadable components will correspond to the above order. When undefined, loading tasks will default to `user-visible`
 
@@ -117,4 +115,4 @@ export const LoginScreen = () => {
 }
 ```
 
-Using this technique, we can utilize the time that an API request is already in-flight to cache component assets in the browser. This way when authentication completes the redirect to our main application content is instantaneous.
+Using this technique, we can utilize the time that an API request is already in-flight to cache component JavaScript & CSS in the browser. This way when authentication completes the redirect to our main application content is instantaneous.

@@ -11,10 +11,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public override componentDidCatch?(error: Error, errorInfo: ErrorInfo) {
-    const { onError } = this.props;
-    if (onError) {
-      void onError(error, errorInfo);
-    }
+    void this.props?.onError?.(error, errorInfo);
   }
 
   public override render() {
