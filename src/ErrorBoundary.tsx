@@ -1,5 +1,6 @@
-import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
+import type { ErrorInfo, ReactNode } from "react";
+
 import type { ErrorCallback, OptionalChildren } from "./types";
 
 export class ErrorBoundary extends Component<Props, State> {

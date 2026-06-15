@@ -9,11 +9,11 @@ export type ErrorCallback = (
   errorInfo: ErrorInfo,
 ) => void | Promise<void>;
 
-export interface ILazyComponent<P> {
+export interface ILazyComponent<P> extends SchedulerPostTaskOptions {
   fallback?: ReactNode;
+  onError?: ErrorCallback;
   errorBoundary?: ReactNode;
   loader: () => Promise<LazyComponent<P>>;
-  onError?: ErrorCallback;
 }
 
 export interface OptionalChildren {
@@ -21,14 +21,5 @@ export interface OptionalChildren {
 }
 
 export type EmptyObject = Record<string, never>;
-
-export enum PriorityLevel {
-  "Immediate" = 0,
-  "Background" = 1,
-}
-
-export interface ILazyComponentFactory<T> extends ILazyComponent<T> {
-  priority?: PriorityLevel;
-}
 
 export type Loader<T = any> = () => Promise<T> | T;
