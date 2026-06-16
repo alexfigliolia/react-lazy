@@ -1,6 +1,6 @@
 # React Lazy
 
-Lazy loadable components powered by the [Scheduler API](https://developer.mozilla.org/en-US/docs/Web/API/Scheduler). 
+Lazy loadable components powered by the [Scheduler API](https://developer.mozilla.org/en-US/docs/Web/API/Scheduler).
 
 ## Installation
 

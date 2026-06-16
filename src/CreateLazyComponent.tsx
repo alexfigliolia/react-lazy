@@ -7,7 +7,7 @@ export const CreateLazyComponent = <T extends Record<string, any>>({
   loader,
   onError,
   fallback = null,
-  errorBoundary = undefined,
+  errorBoundary,
   ...schedulerOptions
 }: ILazyComponent<T>) => {
   let loaderPromise: ReturnType<typeof loader> | null = null;
@@ -26,7 +26,10 @@ export const CreateLazyComponent = <T extends Record<string, any>>({
     );
   }
   function LazyComponent(props: T) {
-    if (typeof errorBoundary !== "undefined" || typeof onError !== "undefined") {
+    if (
+      typeof errorBoundary !== "undefined" ||
+      typeof onError !== "undefined"
+    ) {
       return (
         <ErrorBoundary fallback={errorBoundary} onError={onError}>
           {renderLazyNodes(props)}
